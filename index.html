@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หน้าจองคิว</title>
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: linear-gradient(to bottom, #a8edea, #fed6e3);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #444;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+            text-align: left;
+        }
+        input, select, button {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .table-section {
+            max-width: 800px;
+            margin: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+            color: #333;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ฟอร์มจองคิว</h1>
+        <form id="ฟอร์มจองคิว">
+            <!-- Name -->
+            <label for="ชื่อ_นามสกุล">ชื่อ-นามสกุล</label>
+            <input type="text" id="ชื่อ_นามสกุล" name="ชื่อ_นามสกุล" placeholder="กรอกชื่อ-นามสกุล" required>
+
+            <!-- Gender -->
+            <label for="เพศ">เพศ</label>
+            <select id="เพศ" name="เพศ" required>
+                <option value="">เลือกเพศ</option>
+                <option value="ชาย">ชาย</option>
+                <option value="หญิง">หญิง</option>
+                <option value="อื่น">อื่น ๆ</option>
+            </select>
+
+            <!-- Date -->
+            <label for="วันที่">วันที่ต้องการ</label>
+            <input type="date" id="วันที่" name="วันที่" required>
+
+            <!-- Time -->
+            <label for="เวลา">เวลาที่ต้องการ</label>
+            <select id="เวลา" name="เวลา" required>
+                <option value="">เลือกเวลา</option>
+                <option value="09:30">9:30</option>
+                <option value="10:30">10:30</option>
+                <option value="11:30">11:30</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+            </select>
+
+            <!-- Treatment Type -->
+            <label for="วิธีการรักษา">วิธีการรักษา</label>
+            <select id="วิธีการรักษา" name="วิธีการรักษา" required>
+                <option value="">เลือกวิธีการรักษา</option>
+                <option value="นวดเพื่่อการบำบัดรักษา">นวดเพื่่อการบำบัดรักษา</option>
+                <option value="นวดไทยเพื่อสุขภาพ">นวดไทยเพื่อสุขภาพ</option>
+                <option value="อร์ดูแลมารดาหลังคลอด">คอร์ดูแลมารดาหลังคลอด</option>
+                <option value="นวดเท้า">นวดเท้า</option>
+                <option value="นวดเข่า">นวดเข่า</option>
+                <option value="พอกตา">พอกตา</option>
+                <option value="เผายา">เผายา</option>
+                <option value="ทับหม้อเกลือ">ทับหม้อเกลือ</option>
+                <option value="ประคบสมุนไพร">ประคบสมุนไพร</option>
+            </select>
+
+            <!-- Contact Information -->
+            <label for="ข้อมูลติดต่อ">ข้อมูลติดต่อ</label>
+            <input type="text" id="ข้อมูลติดต่อ" name="ข้อมูลติดต่อ" placeholder="กรอกหมายเลขโทรศัพท์หรืออีเมล" required>
+
+            <!-- Submit -->
+            <button type="submit">ยืนยันการจอง</button>
+        </form>
+    </div>
+
+    <div class="table-section">
+        <h2>ตารางแสดงราคาและเวลา</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>บริการ</th>
+                    <th>ราคา (บาท)</th>
+                    <th>ระยะเวลา</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>นวดเพื่อการบำบัดรักษา</td>
+                    <td>150</td>
+                    <td>1 ชั่วโมง</td>
+                </tr>
+                <tr>
+                    <td>นวดไทยเพื่อสุขภาพ</td>
+                    <td>150</td>
+                    <td>1 ชั่วโมง</td>
+                </tr>
+                <tr>
+                    <td>คอร์ดูแลมารดาหลังคลอด</td>
+                    <td>300</td>
+                    <td>2 ชั่วโมง</td>
+                </tr>
+                <tr>
+                    <td>นวดเท้า</td>
+                    <td>150</td>
+                    <td>45 นาที</td>
+                </tr>
+                <tr>
+                    <td>พอกเข่า</td>
+                    <td>100</td>
+                    <td>30 นาที</td>
+                </tr>
+                <tr>
+                    <td>พอกตา</td>
+                    <td>100</td>
+                    <td>20 นาที</td>
+                </tr>
+                <tr>
+                    <td>เผายา</td>
+                    <td>100</td>
+                    <td>20 นาที</td>
+                </tr>
+                <tr>
+                    <td>ทับหม้อเกลือ</td>
+                    <td>150</td>
+                    <td>30 นาที</td>
+                </tr>
+                <tr>
+                    <td>ประคบสมุนไพร</td>
+                    <td>50</td>
+                    <td>15 นาที</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById('ฟอร์มจองคิว').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const ชื่อ_นามสกุล = document.getElementById('ชื่อ_นามสกุล').value.trim();
+            const เพศ = document.getElementById('เพศ').value;
+            const วันที่ = document.getElementById('วันที่').value;
+            const เวลา = document.getElementById('เวลา').value;
+            const วิธีการรักษา = document.getElementById('วิธีการรักษา').value;
+            const ข้อมูลติดต่อ = document.getElementById('ข้อมูลติดต่อ').value.trim();
+
+            const loadingMessage = document.getElementById('loading-message');
+            loadingMessage.style.display = 'block';
+
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwr9dRcCLyGsR4tXqbBfv9RGAzPcAYVuj7cajZRKAA8JhKtMLTw4me-L2gnDhYv9Nb1/exec';
+
+            const รายละเอียดการจอง = new FormData();
+            รายละเอียดการจอง.append('ชื่อ_นามสกุล', ชื่อ_นามสกุล);
+            รายละเอียดการจอง.append('เพศ', เพศ);
+            รายละเอียดการจอง.append('วันที่', วันที่);
+            รายละเอียดการจอง.append('เวลา', เวลา);
+            รายละเอียดการจอง.append('วิธีการรักษา', วิธีการรักษา);
+            รายละเอียดการจอง.append('ข้อมูลติดต่อ', ข้อมูลติดต่อ);
+
+            try {
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: รายละเอียดการจอง,
+                });
+
+                if (response.ok) {
+                    alert('จองคิวสำเร็จ!');
+                    this.reset();
+                } else {
+                    alert('เกิดข้อผิดพลาดในการจองคิว');
+                }
+            } catch (error) {
+                alert('ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้');
+            } finally {
+                loadingMessage.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
