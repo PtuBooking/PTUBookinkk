@@ -85,19 +85,25 @@
         tr:hover {
             background-color: #f1f1f1;
         }
+        #loading-message {
+            display: none;
+            font-weight: bold;
+            color: #007BFF;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>ฟอร์มจองคิว</h1>
-        <form id="ฟอร์มจองคิว">
+        <h1>ระบบนัดหมายบุณิกาคลีนิกการแพทย์แผนไทย</h1>
+        <form id="booking-form">
             <!-- Name -->
-            <label for="ชื่อ_นามสกุล">ชื่อ-นามสกุล</label>
-            <input type="text" id="ชื่อ_นามสกุล" name="ชื่อ_นามสกุล" placeholder="กรอกชื่อ-นามสกุล" required>
+            <label for="full-name">ชื่อ-นามสกุล</label>
+            <input type="text" id="full-name" name="full-name" placeholder="กรอกชื่อ-นามสกุล" required>
 
             <!-- Gender -->
-            <label for="เพศ">เพศ</label>
-            <select id="เพศ" name="เพศ" required>
+            <label for="gender">เพศ</label>
+            <select id="gender" name="gender" required>
                 <option value="">เลือกเพศ</option>
                 <option value="ชาย">ชาย</option>
                 <option value="หญิง">หญิง</option>
@@ -105,12 +111,12 @@
             </select>
 
             <!-- Date -->
-            <label for="วันที่">วันที่ต้องการ</label>
-            <input type="date" id="วันที่" name="วันที่" required>
+            <label for="date">วันที่ต้องการ</label>
+            <input type="date" id="date" name="date" required>
 
             <!-- Time -->
-            <label for="เวลา">เวลาที่ต้องการ</label>
-            <select id="เวลา" name="เวลา" required>
+            <label for="time">เวลาที่ต้องการ</label>
+            <select id="time" name="time" required>
                 <option value="">เลือกเวลา</option>
                 <option value="09:30">9:30</option>
                 <option value="10:30">10:30</option>
@@ -121,12 +127,12 @@
             </select>
 
             <!-- Treatment Type -->
-            <label for="วิธีการรักษา">วิธีการรักษา</label>
-            <select id="วิธีการรักษา" name="วิธีการรักษา" required>
+            <label for="treatment">วิธีการรักษา</label>
+            <select id="treatment" name="treatment" required>
                 <option value="">เลือกวิธีการรักษา</option>
                 <option value="นวดเพื่่อการบำบัดรักษา">นวดเพื่่อการบำบัดรักษา</option>
                 <option value="นวดไทยเพื่อสุขภาพ">นวดไทยเพื่อสุขภาพ</option>
-                <option value="อร์ดูแลมารดาหลังคลอด">คอร์ดูแลมารดาหลังคลอด</option>
+                <option value="คอร์ดูแลมารดาหลังคลอด">คอร์ดูแลมารดาหลังคลอด</option>
                 <option value="นวดเท้า">นวดเท้า</option>
                 <option value="นวดเข่า">นวดเข่า</option>
                 <option value="พอกตา">พอกตา</option>
@@ -136,12 +142,13 @@
             </select>
 
             <!-- Contact Information -->
-            <label for="ข้อมูลติดต่อ">ข้อมูลติดต่อ</label>
-            <input type="text" id="ข้อมูลติดต่อ" name="ข้อมูลติดต่อ" placeholder="กรอกหมายเลขโทรศัพท์หรืออีเมล" required>
+            <label for="contact-info">ข้อมูลติดต่อ</label>
+            <input type="text" id="contact-info" name="contact-info" placeholder="กรอกหมายเลขโทรศัพท์หรืออีเมล" required>
 
             <!-- Submit -->
             <button type="submit">ยืนยันการจอง</button>
         </form>
+        <div id="loading-message">กำลังโหลด...</div>
     </div>
 
     <div class="table-section">
@@ -156,7 +163,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>นวดเพื่อการบำบัดรักษา</td>
+                    <td>นวดเพื่่อการบำบัดรักษา</td>
                     <td>150</td>
                     <td>1 ชั่วโมง</td>
                 </tr>
@@ -205,33 +212,38 @@
     </div>
 
     <script>
-        document.getElementById('ฟอร์มจองคิว').addEventListener('submit', async function(event) {
+        document.getElementById('booking-form').addEventListener('submit', async function(event) {
             event.preventDefault();
 
-            const ชื่อ_นามสกุล = document.getElementById('ชื่อ_นามสกุล').value.trim();
-            const เพศ = document.getElementById('เพศ').value;
-            const วันที่ = document.getElementById('วันที่').value;
-            const เวลา = document.getElementById('เวลา').value;
-            const วิธีการรักษา = document.getElementById('วิธีการรักษา').value;
-            const ข้อมูลติดต่อ = document.getElementById('ข้อมูลติดต่อ').value.trim();
+            const fullName = document.getElementById('full-name').value.trim();
+            const gender = document.getElementById('gender').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const treatment = document.getElementById('treatment').value;
+            const contactInfo = document.getElementById('contact-info').value.trim();
+
+            if (!fullName || !gender || !date || !time || !treatment || !contactInfo) {
+                alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+                return;
+            }
 
             const loadingMessage = document.getElementById('loading-message');
             loadingMessage.style.display = 'block';
 
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwr9dRcCLyGsR4tXqbBfv9RGAzPcAYVuj7cajZRKAA8JhKtMLTw4me-L2gnDhYv9Nb1/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwcoNJ-ezj1zhEja1rbMO3YXj46EDiB56Z4RrA5G9gK8mQwZGWTBe79gH7dpsduMfeC/exec';
 
-            const รายละเอียดการจอง = new FormData();
-            รายละเอียดการจอง.append('ชื่อ_นามสกุล', ชื่อ_นามสกุล);
-            รายละเอียดการจอง.append('เพศ', เพศ);
-            รายละเอียดการจอง.append('วันที่', วันที่);
-            รายละเอียดการจอง.append('เวลา', เวลา);
-            รายละเอียดการจอง.append('วิธีการรักษา', วิธีการรักษา);
-            รายละเอียดการจอง.append('ข้อมูลติดต่อ', ข้อมูลติดต่อ);
+            const bookingDetails = new FormData();
+            bookingDetails.append('ชื่อ_นามสกุล', fullName);
+            bookingDetails.append('เพศ', gender);
+            bookingDetails.append('วันที่', date);
+            bookingDetails.append('เวลา', time);
+            bookingDetails.append('วิธีการรักษา', treatment);
+            bookingDetails.append('ข้อมูลติดต่อ', contactInfo);
 
             try {
                 const response = await fetch(scriptURL, {
                     method: 'POST',
-                    body: รายละเอียดการจอง,
+                    body: bookingDetails,
                 });
 
                 if (response.ok) {
