@@ -95,14 +95,14 @@
 </head>
 <body>
     <div class="container">
-        <h1>ระบบนัดหมายบุณิกาคลีนิกการแพทย์แผนไทย</h1>
+        <h1>ระบบนัดหมายบุณิกาคลินิกการแพทย์แผนไทย มหาวิทยาลัยปทุมธานี</h1>
         <form id="booking-form">
             <!-- Name -->
             <label for="full-name">ชื่อ-นามสกุล</label>
             <input type="text" id="full-name" name="full-name" placeholder="กรอกชื่อ-นามสกุล" required>
 
             <!-- Gender -->
-            <label for="gender">เพศ</label>
+            <label for="gender">เพศผู้รับการรักษา</label>
             <select id="gender" name="gender" required>
                 <option value="">เลือกเพศ</option>
                 <option value="ชาย">ชาย</option>
@@ -134,7 +134,7 @@
                 <option value="นวดไทยเพื่อสุขภาพ">นวดไทยเพื่อสุขภาพ</option>
                 <option value="คอร์สดูแลมารดาหลังคลอด">คอร์สดูแลมารดาหลังคลอด</option>
                 <option value="นวดเท้า">นวดเท้า</option>
-                <option value="นวดเข่า">นวดเข่า</option>
+                <option value="พอกเข่า">พอกเข่า</option>
                 <option value="พอกตา">พอกตา</option>
                 <option value="เผายา">เผายา</option>
                 <option value="ทับหม้อเกลือ">ทับหม้อเกลือ</option>
@@ -163,7 +163,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>นวดเพื่่อการบำบัดรักษา</td>
+                    <td>นวดเพื่อการบำบัดรักษา</td>
                     <td>150</td>
                     <td>1 ชั่วโมง</td>
                 </tr>
@@ -227,6 +227,11 @@
                 return;
             }
 
+            if (!/^\d{10}$/.test(contactInfo)) {
+                alert('กรุณากรอกหมายเลขโทรศัพท์ให้ครบ 10 หลัก');
+                return;
+            }
+
             const loadingMessage = document.getElementById('loading-message');
             loadingMessage.style.display = 'block';
 
@@ -259,5 +264,10 @@
             }
         });
     </script>
+</body>
+</html>
+<div class="contact-section">
+    <p>สอบถามข้อมูลเพิ่มเติมได้ที่หมายเลข: <strong>061-393-2890</strong></p>
+</div>
 </body>
 </html>
